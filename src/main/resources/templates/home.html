@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+
+<title>Empleos Appp - Home</title>
+
+</head>
+<body>
+	<h1>Bienvenido</h1>
+	
+	<h2>Oferta de trabajo</h2>
+	<h3 th:text="'Titulo: ' + ${nombre}"></h3>
+	<h3 th:text="'Fecha de publicacion: ' + ${fecha}"></h3>
+	<h3 th:text="'Salario ofrecido: ' + ${salario}"></h3>
+	<h3 th:text="'Activa: ' + ${vigente}"></h3>
+	
+</body>
+</html>

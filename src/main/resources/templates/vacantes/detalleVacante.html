@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Detalle de la Vacante</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
+
+<body class="container py-4 bg-light">
+
+	<h1 class="display-3 text-primary text-center py-2 my-4">Detalle de la oferta de trabajo</h1>
+	
+	<div class="card">
+		<div class="card-body">
+			
+			<h2 class="text-center mb-4 display-5">
+				<i class="fa-solid fa-briefcase me-2"></i>
+				<span th:text="${vacante.nombre}"></span>
+			</h2>
+			
+			<h3>
+				<i class="fa-regular fa-calendar-days me-2"></i>Fecha de publicación: 
+				<span th:text="${vacante.fecha}"></span>
+			</h3>
+			
+			<h3>
+				<i class="fa-solid fa-money-bill-wave me-2"></i>Salario ofrecido: 
+				<span th:text="${vacante.salario}"></span>
+			</h3>
+			
+			<h3>
+				<i class="fa-solid fa-file-lines me-2"></i>Descripción: 
+				<span th:text="${vacante.descripcion}"></span>
+			</h3>
+		</div>
+	</div>
+	
+
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

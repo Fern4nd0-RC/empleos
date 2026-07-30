@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>Lista de Categorias disponibles:</h1>
+	
+	<table border="2">
+		<thead>
+			<tr>
+				<th>NOMBRE</th>
+				<th>DESCRIPCION</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="tmpCategoria : ${catNueva}">
+				<td th:text="${tmpCategoria.nombre}"></td>
+				<td th:text="${tmpCategoria.descripcion}"></td>
+			</tr>
+		</tbody>
+		
+	</table>
+</body>
+</html>

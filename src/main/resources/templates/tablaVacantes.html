@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Listado de vacantes</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">	
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" rel="stylesheet">
+	
+</head>
+<body class="container py-4 bg-light">
+	<h1 class="display-3 text-primary text-center py-2 my-4">Vacantes Disponibles</h1>
+
+	<div class="table-responsive">
+		<table class="table table-hover table-bordered">
+			<thead class="table table-secondary">
+				<tr class="text-center">
+					<th>LOGO</th>
+					<th>ID</th>
+					<th>PUESTO</th>
+					<th>DESCRIPCION</th>
+					<th>FECHA DE PUBLICACION</th>
+					<th>SALARIO</th>
+					<th>DESTACADA</th>
+					<th>ACCIONES</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="tmpVacante : ${vacantes}">
+					<td class="text-center">
+						<img th:src="@{/images/{tmpImg} (tmpImg = ${tmpVacante.imagen})}" width="50" height="50">
+					</td>
+					<td th:text="${tmpVacante.id}"  class="text-center"></td>
+					<td th:text="${tmpVacante.nombre}"></td>
+					<td th:text="${tmpVacante.descripcion}"></td>
+					<td th:text="${tmpVacante.fecha}"></td>
+					<td th:text="${tmpVacante.salario}"></td>
+					<td class="text-center"> 
+						<span th:if="${tmpVacante.destacada == 1}" class="badge text-bg-success"> Si</span>
+						<span th:unless="${tmpVacante.destacada == 1}" class="badge text-bg-danger"> No</span>
+					</td>
+					<td class="text-center">
+						<a th:href="@{/vacantes/view/{tmpId} (tmpId = ${tmpVacante.id})}" class="btn btn-success btn-sm" title="Ver detalle de la vacante"><i class="fa-solid fa-eye"></i></a> <!-- Usando anotación @PathVariable -->
+						<a th:href="@{/vacantes/delete(id = ${tmpVacante.id})}" class="btn btn-danger btn-sm" title="Eliminar Vacante"><i class="fa-solid fa-trash-can"></i></a>  <!-- Usando anotación @RequestParam -->			
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/js/all.min.js"></script>
+</body>
+</html>
