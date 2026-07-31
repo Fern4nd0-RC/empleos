@@ -1,19 +1,114 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-
-<title>Empleos Appp - Home</title>
-
-</head>
-<body>
-	<h1>Bienvenido</h1>
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+	<head>
+	    <meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <meta name="description" content="Aplicación para publicar Ofertas de Trabajo">
+	    <meta name="author" content="Iván E. Tinajero Díaz">
+	    <link rel="icon" th:href="@{/favicon.ico}">
 	
-	<h2>Oferta de trabajo</h2>
-	<h3 th:text="'Titulo: ' + ${nombre}"></h3>
-	<h3 th:text="'Fecha de publicacion: ' + ${fecha}"></h3>
-	<h3 th:text="'Salario ofrecido: ' + ${salario}"></h3>
-	<h3 th:text="'Activa: ' + ${vigente}"></h3>
+	    <title>EmpleosApp | Home</title>
 	
-</body>
+	    <!-- Bootstrap-->
+	    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+	    <link th:href="@{/css/jumbotron.css}" rel="stylesheet">
+	    <link th:href="@{/css/sticky-footer-navbar.css}" rel="stylesheet">
+  	</head>
+
+  <body class="bg-light">
+
+	<header>
+      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <div class="container">
+          <a class="navbar-brand" th:href="@{/}">EmpleosApp :)</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" th:href="@{/}">Inicio</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" th:href="@{/categorias}">Categorías</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" th:href="@{/tablaEmpleos}">Vacantes</a>
+              </li>          
+            </ul>  
+            <div class="d-flex gap-2">
+              <a class="btn btn-primary" th:href="@{/login}">Ingresar</a>
+              <a class="btn btn-outline-light" th:href="@{/signup}">Registrarse</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main role="main" style="padding-top: 50px;">
+
+      <section class="w-100 bg-white border-top border-bottom shadow-sm py-5 mb-5">
+        <div class="container">
+          <h3 class="display-5 fw-bold text-center">Encuentra el trabajo que encaja contigo.</h3>
+          <p class="fs-5 text-muted text-center mb-4">Puedes buscar por descripción y categoría.</p>
+          
+          <form class="row g-2 align-items-center justify-content-center" th:action="@{/search}" method="get">
+            <div class="col-12 col-md-5">
+              <input type="text" class="form-control" name="query" placeholder="Cargo o empresa">
+            </div>
+            
+            <div class="col-12 col-md-4">
+              <select class="form-select" name="categoria">
+                <option selected>Seleccione una categoría</option>
+                <option value="1">Ventas</option>
+                <option value="2">Contabilidad</option>
+                <option value="3">Transporte</option>
+                <option value="4">Informática</option>
+                <option value="5">Construcción</option>
+              </select>
+            </div>
+            
+            <div class="col-12 col-md-3 col-lg-2">
+              <button type="submit" class="btn btn-primary w-100">Buscar empleos</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+		<div class="container py-2">
+		  <h2 class="fw-bold text-center display-6 mb-4">Ofertas destacadas del día</h2>
+		
+		  <div class="card mb-4 shadow-sm" th:each="vacante : ${vacantes}">
+		    <div class="row g-0 align-items-center p-3" >
+		      <div class="col-md-3 text-center mb-3 mb-md-0">            
+		        <img class="img-fluid rounded" th:src="@{/images/webp/{img} (img=${vacante.imagen})}" alt="Logo Arquitecto" style="max-height: 150px; object-fit: contain;">            
+		      </div>
+		      <div class="col-md-9">
+		        <div class="card-body py-0">
+		          <h3 class="card-title h2 fw-bold" th:text="${vacante.nombre}">Arquitecto</h3>
+		          <p class="card-text mb-1"><strong>Categoría:</strong> <span class="badge bg-secondary"> N/A </span></p>
+		          <p class="card-text text-muted mb-2"><small><strong>Publicado:</strong> <span th:text="${vacante.fecha}">2023-01-01 </span></small></p>                
+		          <p class="card-text" th:text="${vacante.descripcion}"></p>
+		          <a class="btn btn-primary" th:href="@{/vacantes/view/{id} (id=${vacante.id})}" role="button">Ver detalles &raquo;</a>            
+		        </div>
+		      </div>
+		    </div>  
+		  </div>
+		</div>
+
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <p>
+          &copy; 2026 EmpleosApp, Inc. | WebApp Desarrollada con Spring Boot 4.0.0 | Autor: Fernando Romero De La Cruz | &middot; <a href="#">Privacy</a>
+          &middot; <a href="#">Terms</a>
+        </p>
+      </div>
+    </footer>
+
+	<!-- Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  </body>
 </html>

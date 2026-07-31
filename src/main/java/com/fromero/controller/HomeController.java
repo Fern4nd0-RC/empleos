@@ -65,16 +65,9 @@ public class HomeController {
 	// === AGREGAR TIPOS DE DATOS "SIMPLES" AL MODELO Y DESPLEGARLOS EN LA VISTA === //
 	@GetMapping("/")
 	public String home(Model modelo) {
-
-		String nombre = "Auxiliar contable";
-		Date fechaPub = new Date();
-		Double salario = 9000.0;
-		Boolean vigente = true;
 		
-		modelo.addAttribute("nombre", nombre);
-		modelo.addAttribute("fecha", fechaPub);
-		modelo.addAttribute("salario", salario);
-		modelo.addAttribute("vigente", vigente);
+		List<Vacante> listaVacantes = IVacante.buscarTodas();
+		modelo.addAttribute("vacantes", listaVacantes);		
 		
 		return "home";
 	}

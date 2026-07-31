@@ -1,45 +1,144 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Detalle de la Vacante</title>
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Aplicación para publicar Ofertas de Trabajo">
+	<meta name="author" content="Iván E. Tinajero Díaz">
+	<link rel="icon" th:href="@{/favicon.ico}">
+	
+	<title>EmpleosApp | Detalle de la vacante</title>
+	
+	<!-- Bootstrap-->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+	<link th:href="@{/css/jumbotron.css}" rel="stylesheet">
+	<link th:href="@{/css/sticky-footer-navbar.css}" rel="stylesheet">
 </head>
 
-<body class="container py-4 bg-light">
+  <body class="bg-light">
 
-	<h1 class="display-3 text-primary text-center py-2 my-4">Detalle de la oferta de trabajo</h1>
-	
-	<div class="card">
-		<div class="card-body">
-			
-			<h2 class="text-center mb-4 display-5">
-				<i class="fa-solid fa-briefcase me-2"></i>
-				<span th:text="${vacante.nombre}"></span>
-			</h2>
-			
-			<h3>
-				<i class="fa-regular fa-calendar-days me-2"></i>Fecha de publicación: 
-				<span th:text="${vacante.fecha}"></span>
-			</h3>
-			
-			<h3>
-				<i class="fa-solid fa-money-bill-wave me-2"></i>Salario ofrecido: 
-				<span th:text="${vacante.salario}"></span>
-			</h3>
-			
-			<h3>
-				<i class="fa-solid fa-file-lines me-2"></i>Descripción: 
-				<span th:text="${vacante.descripcion}"></span>
-			</h3>
-		</div>
-	</div>
-	
+	<header>
+      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <div class="container">
+          <a class="navbar-brand" th:href="@{/}">EmpleosApp :)</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
 
+          <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" th:href="@{/}">Inicio</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" th:href="@{/categorias}">Categorías</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" th:href="@{/tablaEmpleos}">Vacantes</a>
+              </li>          
+            </ul>  
+            <div class="d-flex gap-2">
+              <a class="btn btn-primary" th:href="@{/login}">Ingresar</a>
+              <a class="btn btn-outline-light" th:href="@{/signup}">Registrarse</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
 
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+	<main role="main" style="padding-top: 56px;">
+      <div class="container py-5">
+      
+      	<h4 class="display-4 mb-4 text-center fw-bold">Detalle de la vacante</h4>
+        
+        <div class="row g-4">
+          <!-- DETALLE DEL EMPLEO -->
+          <div class="col-lg-8">
+            <div class="card bordeR shadow-sm rounded-3">
+              <div class="card-body p-4 p-md-5">
+                
+                <div class="d-flex align-items-center gap-3 mb-4">
+                  <img th:src="@{/images/webp/{img} (img=${vacante.imagen})}" 
+                       alt="Logo Empresa" 
+                       class="img-fluid rounded border p-2" 
+                       style="max-height: 80px; width: 80px; object-fit: contain;">
+                  <div>
+                    <h1 class="h2 fw-bold mb-1" th:text="${vacante.nombre}"></h1>
+                    <span class="badge bg-secondary fs-6 fw-normal">N/A</span>
+                  </div>
+                </div>
+
+                <hr class="my-4">
+
+                <!-- Resumen breve -->
+                <h5 class="fw-bold mb-3">Resumen de la posición</h5>
+                <p class="text-muted fs-5" th:text="${vacante.descripcion}"></p>
+
+                <!-- Detalles completos -->
+                <h5 class="fw-bold mt-4 mb-3">Detalles de la oferta de trabajo</h5>
+                <div class="bg-light p-4 rounded-3 border mb-4">
+                  <p class="card-text mb-0">
+                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                  </p>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- RESUMEN DEL EMPLEO -->
+          <div class="col-lg-4">
+            <div class="card border shadow-sm rounded-3 sticky-top" style="top: 80px;">
+              <div class="card-body p-4">
+                <h5 class="fw-bold card-title mb-4">Información de la vacante</h5>
+                
+                <div class="d-flex align-items-center mb-3">
+                  <div class="bg-light p-2 rounded-circle me-3 text-primary">
+                    <i class="bi bi-currency-dollar fs-4"></i>
+                  </div>
+                  <div>
+                    <small class="text-muted d-block">Salario ofrecido</small>
+                    <strong class="fs-5 text-success" th:text="'$' + ${vacante.salario}"></strong>
+                  </div>
+                </div>
+
+                <div class="d-flex align-items-center mb-4">
+                  <div class="bg-light p-2 rounded-circle me-3 text-primary">
+                    <i class="bi bi-calendar-event fs-4"></i>
+                  </div>
+                  <div>
+                    <small class="text-muted d-block">Fecha de publicación</small>
+                    <strong th:text="${vacante.fecha}"></strong>
+                  </div>
+                </div>
+
+                <div class="d-grid gap-2">
+                  <a class="btn btn-primary btn-lg fw-bold" 
+                     href="#" 
+                     role="button" 
+                     title="Quiero aplicar para esta oferta de trabajo.">
+                    <i class="bi bi-send-fill me-2"></i> Aplicar
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <p>
+          &copy; 2026 EmpleosApp, Inc. | WebApp Desarrollada con Spring Boot 4.0.0 | Autor: Fernando Romero De La Cruz | &middot; <a href="#">Privacy</a>
+          &middot; <a href="#">Terms</a>
+        </p>
+      </div>
+    </footer>
+
+	<!-- Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  </body>
 </html>

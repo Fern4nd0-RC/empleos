@@ -11,7 +11,7 @@ public class Vacante {
 	private Double salario;
 	private Boolean estatus;
 	private Integer destacada;
-	private String imagen = "no-image.png";
+	private String imagen = "no-image.webp";
 	
 	 
 	public Integer getId() {

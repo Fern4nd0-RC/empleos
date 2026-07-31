@@ -23,9 +23,8 @@ public class VacanteController {
 	// === ANOTACIÓN PathVariable === //
 	@GetMapping("/view/{id}")
 	public String verDetalle(@PathVariable("id") int idVacante, Model modelo){
-		Vacante vacante = IVacante.buscarPorId(idVacante);
 		
-		System.out.println("Los datos de la vacante encontrada son: \n" + vacante);
+		Vacante vacante = IVacante.buscarPorId(idVacante);
 		modelo.addAttribute("vacante", vacante);
 		
 		return "vacantes/detalleVacante";

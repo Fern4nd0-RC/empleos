@@ -30,7 +30,7 @@ public class VacanteService implements VacanteInterface{
 			vacante1.setSalario(12800.0);
 			vacante1.setEstatus(true);			
 			vacante1.setDestacada(1);
-			vacante1.setImagen("empresa1.png");
+			vacante1.setImagen("empresa1.webp");
 			
 			Vacante vacante2 = new Vacante();
 			vacante2.setId(2);
@@ -40,7 +40,7 @@ public class VacanteService implements VacanteInterface{
 			vacante2.setSalario(14600.0);
 			vacante2.setEstatus(true);	
 			vacante2.setDestacada(0);
-			vacante2.setImagen("empresa2.png");
+			vacante2.setImagen("empresa2.webp");
 			
 			Vacante vacante3 = new Vacante();
 			vacante3.setId(3);
@@ -59,7 +59,7 @@ public class VacanteService implements VacanteInterface{
 			vacante4.setSalario(7500.0);
 			vacante4.setEstatus(true);
 			vacante4.setDestacada(1);
-			vacante4.setImagen("empresa3.png");
+			vacante4.setImagen("empresa3.webp");
 			
 			listaVacantes.add(vacante1);
 			listaVacantes.add(vacante2);
