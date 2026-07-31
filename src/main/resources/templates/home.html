@@ -28,7 +28,7 @@
           <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" th:href="@{/}">Inicio</a>
+                <a class="nav-link" th:href="@{/}">Inicio</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" th:href="@{/categorias}">Categorías</a>
@@ -77,7 +77,7 @@
       </section>
 
 		<div class="container py-2">
-		  <h2 class="fw-bold text-center display-6 mb-4">Ofertas destacadas del día</h2>
+		  <h2 class="fw-bold text-primary text-center display-4 mb-4">Ofertas destacadas del día</h2>
 		
 		  <div class="card mb-4 shadow-sm" th:each="vacante : ${vacantes}">
 		    <div class="row g-0 align-items-center p-3" >
