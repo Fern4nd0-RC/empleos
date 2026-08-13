@@ -1,15 +1,11 @@
-<!doctype html>
-<html xmlns:th="http://www.thymeleaf.org">
-  <head th:replace="~{fragments/head :: header('EmpleosApp | Categoria Nueva')}"></head>
-
-  <body class="bg-light">
-    <div th:replace="~{fragments/menu :: navbar}"></div>
+<div th:replace="~{fragments/top :: top}"></div>
 
     <main role="main" style="padding-top: 50px">
       <div class="container bg-white py-5 mb-5">
         <div class="card">
           <h4 class="card-header fw-bold">Datos de la categoría</h4>
           <div class="card-body">
+
             <form th:action="@{/categorias/save}" method="post">
               <div class="row mb-4">
                 <div class="col-md-6">
@@ -30,13 +26,13 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="descripcion">Descripción</label>
-                    <textarea class="form-control" name="descripcion" id="descripcion" rows="2"></textarea>
+                    <textarea class="form-control" name="descripcion" id="descripcion" rows="2" required="required"></textarea>
                   </div>
                 </div>
               </div>
 
               <hr />
-
+              
               <button type="submit" title="Guardar el registro." class="btn btn-primary">Guardar</button>
             </form>
           </div>

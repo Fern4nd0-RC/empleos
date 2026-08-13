@@ -1,0 +1,8 @@
+<th:block th:fragment="top">
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{fragments/head :: header}"></head>
+
+  <body class="bg-light">
+    <header th:replace="~{fragments/menu :: navbar}"></header>
+</th:block>
