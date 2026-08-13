@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fromero.interfaces.VacanteInterface;
 import com.fromero.model.Vacante;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @Controller
 @RequestMapping("/vacantes")
@@ -19,6 +22,33 @@ public class VacanteController {
     public VacanteController(VacanteInterface IVacante) {
         this.IVacante = IVacante;
     }
+
+	@GetMapping("/create")
+	public String crer() {
+		return "vacantes/formVacante";
+	}
+	
+	@PostMapping("/save")
+	public String guardar(
+		@RequestParam("nombre") String nombre, 
+		@RequestParam("descripcion") String descripcion, 
+		@RequestParam("estatus") String estatus, 
+		@RequestParam("fecha") String fecha, 
+		@RequestParam("destacado") String destacado, 
+		@RequestParam("salario") double salario, 
+		@RequestParam("detalles") String detalles) {
+
+		System.out.println(nombre);
+		System.out.println(descripcion);
+		System.out.println(estatus);
+		System.out.println(fecha);
+		System.out.println(destacado);
+		System.out.println(salario);
+		System.out.println(detalles);
+		
+		return "vacantes/listVacante";
+	}
+	
 	
 	// === ANOTACIÓN PathVariable === //
 	@GetMapping("/view/{id}")
