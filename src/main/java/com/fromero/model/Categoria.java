@@ -5,8 +5,7 @@ public class Categoria {
 	private String nombre;
 	private String descripcion;
 	private Boolean estado;
-	
-	
+	 
 	public String getNombre() {
 		return nombre;
 	}
