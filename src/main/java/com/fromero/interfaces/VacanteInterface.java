@@ -9,4 +9,6 @@ public interface VacanteInterface {
 	List<Vacante> buscarTodas();
 	
 	Vacante buscarPorId(Integer idVacante);
+
+    void guardar(Vacante vacante);
 }

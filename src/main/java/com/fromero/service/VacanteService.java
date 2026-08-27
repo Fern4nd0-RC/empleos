@@ -27,8 +27,8 @@ public class VacanteService implements VacanteInterface{
 			vacante1.setNombre("Ingeniero en Sistemas");
 			vacante1.setDescripcion("Se solicita Ingeniero en Sistemas para desarrollo de aplicaciones en Java Spring Boot.");
 			vacante1.setFecha(sdf.parse("11-04-2026"));
-			vacante1.setSalario(12800.0);
-			vacante1.setEstatus(true);			
+			vacante1.setSalario(12800.0);	
+            vacante1.setEstatus(1);
 			vacante1.setDestacada(1);
 			vacante1.setImagen("empresa1.webp");
 			
@@ -38,7 +38,7 @@ public class VacanteService implements VacanteInterface{
 			vacante2.setDescripcion("Se solicita contador con 5 años de experiencia y que cuente con titulo.");
 			vacante2.setFecha(sdf.parse("09-06-2026"));
 			vacante2.setSalario(14600.0);
-			vacante2.setEstatus(true);	
+            vacante2.setEstatus(0);
 			vacante2.setDestacada(0);
 			vacante2.setImagen("empresa2.webp");
 			
@@ -48,7 +48,7 @@ public class VacanteService implements VacanteInterface{
 			vacante3.setDescripcion("Empresa solicita ingeniero electrico titulado para mantenimiento de la instalacion electrica.");
 			vacante3.setFecha(sdf.parse("11-04-2026"));
 			vacante3.setSalario(10500.0);
-			vacante3.setEstatus(false);	
+            vacante3.setEstatus(1);
 			vacante3.setDestacada(0);
 			
 			Vacante vacante4 = new Vacante();
@@ -57,7 +57,7 @@ public class VacanteService implements VacanteInterface{
 			vacante4.setDescripcion("Solicitamos diseñador grafico titulado para diseñar estrategias publicitarias de la empresa.");
 			vacante4.setFecha(sdf.parse("11-04-2026"));
 			vacante4.setSalario(7500.0);
-			vacante4.setEstatus(true);
+            vacante4.setEstatus(1);
 			vacante4.setDestacada(1);
 			vacante4.setImagen("empresa3.webp");
 			
@@ -88,5 +88,12 @@ public class VacanteService implements VacanteInterface{
 		
 		return null;
 	}
+
+
+    @Override
+    public void guardar(Vacante vacante) {
+        listaVacantes.add(vacante);
+        System.out.println("Vacante guardada correctamente!");
+    }
 
 }
