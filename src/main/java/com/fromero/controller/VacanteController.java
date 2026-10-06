@@ -25,7 +25,7 @@ import com.fromero.model.Vacante;
 public class VacanteController {
 
     private VacanteInterface IVacante;
-
+ 
     public VacanteController(VacanteInterface IVacante) {
         this.IVacante = IVacante;
     }

@@ -1,12 +1,10 @@
 <div th:replace="~{fragments/top :: top}"></div>
-
-	<main role="main" class="pt-5">
-
+	<main>
 		<!-- Buscador principal -->
-		<section class="w-100 bg-white border-top border-bottom shadow-sm py-5 mb-5">
+		<section class="bg-secondary border-bottom shadow-sm py-5 mb-5">
 			<div class="container">
-				<h3 class="display-5 fw-bold text-center">Encuentra el trabajo que encaja contigo.</h3>
-				<p class="fs-5 text-muted text-center mb-4">Puedes buscar por descripción y categoría.</p>
+				<h1 class="display-5 fw-bold text-center text-white">Encuentra el trabajo que encaja contigo.</h1>
+				<p class="fs-5 text-center mb-4 text-white">Puedes buscar por descripción y categoría.</p>
 
 				<form class="row g-2 align-items-center justify-content-center" th:action="@{/search}" method="get">
 					<div class="col-12 col-md-5">
@@ -55,14 +53,13 @@
 							<p class="card-text text-muted mb-2">
 								<small>
 									<strong>Publicado:</strong>
-									<span th:text="${vacante.fecha}">2026-01-01</span>
+									<span th:text="${#dates.format(vacante.fecha, 'dd/MM/yyyy')}">2026-01-01</span>
 								</small>
 							</p>
 
 							<p class="card-text" th:text="${vacante.descripcion}"></p>
 
-							<a class="btn btn-primary" th:href="@{/vacantes/view/{id}(id=${vacante.id})}"
-								role="button">Ver detalles &raquo;</a>
+							<a class="btn btn-primary" th:href="@{/vacantes/view/{id}(id=${vacante.id})}">Ver detalles &raquo;</a>
 						</div>
 					</div>
 				</div>

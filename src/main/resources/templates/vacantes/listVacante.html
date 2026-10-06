@@ -1,19 +1,20 @@
-<div th:replace="~{fragments/top :: top}"></div>
+<div th:replace="~{fragments/top :: top}" />
 
-<main class="container py-5">
-  <h4 class="display-5 fw-bold text-primary text-center py-2 my-4">Listado de vacantes</h4>
+<main class="container">
+  <h1 class="display-5 fw-bold text-primary text-center py-2 my-4">Listado de vacantes</h1>
 
-  <div class="card">
+  <div class="card shadow-sm">
     <div class="card-body">
       <a class="btn btn-primary" th:href="@{/vacantes/create}" title="Crear nueva Oferta de Trabajo">
-        <i class="fas fa-file"></i> Nueva
+        <i class="fas fa-plus"></i> Nueva
       </a>
 
-      <hr />
+      <hr>
 
       <div class="table-responsive">
-        <table class="table table-hover table-bordered">
-          <thead class="thead-light">
+        <table class="table table-hover table-bordered table-light align-middle">
+          <caption>Listado de vacantes registradas</caption>
+          <thead>
             <tr class="text-center">
               <th>Categoría</th>
               <th>Nombre</th>
@@ -29,22 +30,34 @@
               <td th:text="${tmpVacante.nombre}"></td>
               <td th:text="${tmpVacante.fecha}"></td>
               <td>
-                <span th:class="${tmpVacante.estatus == 1} ? 'badge text-bg-primary' : 'badge text-bg-secondary'"
-                  th:text="${tmpVacante.estatus == 1} ? 'Activa' : 'Cerrada'">
+                <span 
+                  class="badge"
+                  th:classappend="${tmpVacante.estatus == 1} ? 'text-bg-primary' : 'text-bg-secondary' "
+                  th:text="${tmpVacante.estatus == 1} ? 'Activa' : 'Cerrada' ">
                 </span>
               </td>
               <td>
-                <span th:class="${tmpVacante.destacada == 1} ? 'badge text-bg-success' : 'badge text-bg-danger'"
-                  th:text="${tmpVacante.destacada == 1} ? 'Sí' : 'No'">
+                <span 
+                  class="badge"
+                  th:classappend="${tmpVacante.destacada == 1} ? 'text-bg-success' : 'text-bg-danger' "
+                  th:text="${tmpVacante.destacada == 1} ? 'Si' : 'No' ">
                 </span>
               </td>
               <td>
-                <a href="#" class="btn btn-success btn-sm" role="button" title="Editar el registro.">
-                  <i class="fas fa-pencil-alt" aria-hidden="true"></i>
+                <a 
+                  href="#" 
+                  class="btn btn-warning btn-sm" 
+                  id="btnEditar"
+                  title="Editar el registro.">
+                    <i class="fas fa-pencil-alt" aria-hidden="true"></i>
                 </a>
 
-                <a href="#" class="btn btn-danger btn-sm confirmar" role="button" title="Eliminar el registro.">
-                  <i class="fas fa-trash" aria-hidden="true"></i>
+                <a 
+                  href="#" 
+                  class="btn btn-danger btn-sm" 
+                  id="btnEliminar"
+                  title="Eliminar el registro.">
+                    <i class="fas fa-trash" aria-hidden="true"></i>
                 </a>
               </td>
             </tr>
@@ -59,17 +72,27 @@
 <footer th:replace="~{fragments/footer :: footer}"></footer>
 <th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
 
-<script>
-  // Guardamos en una variable una funcion que muestra un cuadro de dialogo de tipo confirm
-  var dialogoConfirm = function (e) {
-    if (!confirm('¿Realmente desea eliminar el registro?')) e.preventDefault();
-  };
-
-  // Aplicamos a todos los elementos HTML que tengan la clase CSS 'confirmar' el evento click para que muestre el cuadro de dialogo de confirmacion.
-  document.querySelectorAll('.confirmar').forEach(function (elemento) {
-    elemento.addEventListener('click', dialogoConfirm, false);
-  });
-</script>
+    <script>
+      $(document).ready(function() {
+        // Evento click del botón
+        $('#btnEliminar').on('click', function() { 
+          Swal.fire({
+            title: '¿Estás seguro?',
+            text: "No podrás revertir esto",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              Swal.fire('Eliminado', 'El registro ha sido eliminado.', 'success');
+            }
+          });
+        });
+      });
+    </script>
 </body>
 
 </html>
