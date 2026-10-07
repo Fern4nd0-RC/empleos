@@ -8,8 +8,14 @@
     </h2>
 
     <div class="card-body">
-      <form th:action="@{/vacantes/save}" method="post" enctype="multipart/form-data">
-        
+      <form th:action="@{/vacantes/save}" method="post" enctype="multipart/form-data" th:object="${vacante}">
+		<div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+		    Por favor corrija los siguientes errores:
+		    <ul>
+		        <li th:each="err : ${#fields.errors('*')}" th:text="${err}"/>
+		    </ul>
+		</div>
+   
         <!-- Fila 1: Nombre y Descripción -->
         <div class="row mb-2">
           <div class="col-md-3">

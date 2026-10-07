@@ -59,13 +59,12 @@
 
 							<p class="card-text" th:text="${vacante.descripcion}"></p>
 
-							<a class="btn btn-primary" th:href="@{/vacantes/view/{id}(id=${vacante.id})}">Ver detalles &raquo;</a>
+							<a class="btn btn-primary" th:href="@{/vacantes/view/{id}(id=${vacante.id})}">Ver detalles <i class="fa-solid fa-angles-right"></i></a>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-
 	</main>
 
 	<footer th:replace="~{fragments/footer :: footer}"></footer>
