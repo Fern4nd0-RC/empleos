@@ -1,47 +1,49 @@
-<div th:replace="~{fragments/top :: top}"></div>
+<th:block th:replace="~{fragments/top :: top}" />
 
-    <main role="main" style="padding-top: 50px">
-      <div class="container bg-white py-5 mb-5">
-        <div class="card">
-          <h4 class="card-header fw-bold">Datos de la categoría</h4>
-          <div class="card-body">
+<main class="container py-4 my-4">
+	<div class="card shadow-sm">
+		<h2 class="card-header h4 mb-0 fw-bold">Datos de la categoría</h2>
 
-            <form th:action="@{/categorias/save}" method="post">
-              <div class="row mb-4">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="nombre">Nombre</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="nombre"
-                      name="nombre"
-                      placeholder="Escriba el nombre de la categoria"
-                      required="required" />
-                  </div>
-                </div>
-              </div>
+		<div class="card-body">
+			<form th:action="@{/categorias/save}" method="post" th:object="${categoria}">
+				<div th:if="${#fields.hasErrors('*')}" class='alert alert-danger' role='alert'>
+					Por favor corrija los siguientes errores:
+					<ul>
+						<li th:each="err : ${#fields.errors('*')}" th:text="${err}" />
+					</ul>
+				</div>
 
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="descripcion">Descripción</label>
-                    <textarea class="form-control" name="descripcion" id="descripcion" rows="2" required="required"></textarea>
-                  </div>
-                </div>
-              </div>
+				<div class="mb-3">
+					<div class="row">
+						<div class="col-md-8">
+							<label for="nombre" class="form-label fw-semibold">Nombre</label> <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Escriba el nombre de la categoría" required />
+						</div>
 
-              <hr />
-              
-              <button type="submit" title="Guardar el registro." class="btn btn-primary">Guardar</button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </main>
+						<div class="col-md-4">
+							<label for="activo" class="form-label fw-semibold">Estado</label> <select class="form-select" id="estado" name="estado" required>
+								<option value="A" selected>Activo</option>
+								<option value="B">Inactivo</option>
+							</select>
+						</div>
+					</div>
+				</div>
 
-    <footer th:replace="~{fragments/footer :: footer}"></footer>
+				<div class="mb-3">
+					<label for="descripcion" class="form-label fw-semibold">Descripción</label>
+					<textarea class="form-control" name="descripcion" id="descripcion" rows="3" placeholder="Breve descripción de la categoría" required></textarea>
+				</div>
 
-    <div th:replace="~{fragments/scripts :: scripts}"></div>
-  </body>
+				<hr>
+
+				<button type="submit" title="Guardar el registro." class="btn btn-primary">Guardar</button>
+				<button type="reset" class="btn btn-secondary">Limpiar</button>
+			</form>
+		</div>
+	</div>
+</main>
+
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+<div th:replace="~{fragments/scripts :: scripts}"></div>
+
+</body>
 </html>

@@ -1,27 +1,60 @@
-<div th:replace="~{fragments/top :: top}"></div>
-    <main class="container py-5">
-      <div class="container">
-        <h1 class="display-4 fw-bold text-primary text-center py-2 my-4">Categorías Disponibles</h1>
-      </div>
+<th:block th:replace="~{fragments/top :: top}" />
 
-      <table class="table table-hover table-bordered mt-5">
-        <thead class="table-secondary">
-          <tr>
-            <th>NOMBRE</th>
-            <th>DESCRIPCION</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr th:each="tmpCategoria : ${catNueva}">
-            <td th:text="${tmpCategoria.nombre}"></td>
-            <td th:text="${tmpCategoria.descripcion}"></td>
-          </tr>
-        </tbody>
-      </table>
-    </main>
+<main class="container py-4 my-4">
 
-    <footer th:replace="~{fragments/footer :: footer}"></footer>
+	<div class="card shadow-sm">
+		<div class="card-header d-flex justify-content-between align-items-center bg-light">
+			<h2 class="h5 fw-bold mb-0 text-primary">
+				<i class="fas fa-tags me-1" aria-hidden="true"></i> Listado de Categorías
+			</h2>
+			<a class="btn btn-primary" th:href="@{/categorias/create}" title="Crear nueva Categoría">
+				<i class="fas fa-plus" aria-hidden="true"></i> Nueva
+			</a>
+		</div>
 
-    <div th:replace="~{fragments/scripts :: scripts}"></div>
-  </body>
+		<div class="card-body">
+			<div th:if="${msg != null}" class="alert alert-success" th:text="${msg}"></div>
+
+			<div class="table-responsive">
+				<table class="table table-hover table-bordered table-light align-middle">
+					<caption>Listado de categorias registradas.</caption>
+					<thead class="table-secondary">
+						<tr class="text-center">
+							<th>ID</th>
+							<th>Nombre</th>
+							<th>Descripcion</th>
+							<th>Estado</th>
+							<th>Acciones</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<tr th:each="cat : ${categorias}" class="text-center">
+							<td th:text="${cat.id}"></td>
+							<td th:text="${cat.nombre}"></td>
+							<td th:text="${cat.descripcion}"></td>
+							<td>
+								<span class="badge" th:classappend="${cat.estado == 'A'} ? 'text-bg-success' : 'text-bg-danger' "
+									th:text="${cat.estado == 'A'} ? 'Activa' : 'Inactiva' "> </span>
+							</td>
+							<td>
+								<a href="#" class="btn btn-warning btn-sm" id="btnEditar" title="Editar el registro.">
+									<i class="fas fa-pencil-alt" aria-hidden="true"></i>
+								</a>
+								<a href="#" class="btn btn-danger btn-sm" id="btnEliminar" title="Eliminar el registro.">
+									<i class="fas fa-trash" aria-hidden="true"></i>
+								</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</main>
+
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+<th:block th:replace="~{fragments/scripts :: scripts}" />
+
+</body>
 </html>

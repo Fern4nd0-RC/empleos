@@ -1,203 +1,141 @@
-<th:block th:replace="~{fragments/top :: top}"/>
-<main class="container">
-  <h1 class="display-5 fw-bold text-primary text-center py-2 my-4">Crear nueva vacante</h1>
+<th:block th:replace="~{fragments/top :: top}" />
+<main class="container py-4 my-4">
 
-  <div class="card shadow-sm">
-    <h2 class="card-header h4 mb-0 fw-bold">
-        Datos de la oferta de trabajo
-    </h2>
+	<div class="card shadow-sm">
+		<h2 class="card-header h4 mb-0 fw-bold">Datos de la oferta de trabajo</h2>
 
-    <div class="card-body">
-      <form th:action="@{/vacantes/save}" method="post" enctype="multipart/form-data" th:object="${vacante}">
-		<div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
-		    Por favor corrija los siguientes errores:
-		    <ul>
-		        <li th:each="err : ${#fields.errors('*')}" th:text="${err}"/>
-		    </ul>
+		<div class="card-body">
+			<form th:action="@{/vacantes/save}" method="post" enctype="multipart/form-data" th:object="${vacante}">
+				<div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+					Por favor corrija los siguientes errores:
+					<ul>
+						<li th:each="err : ${#fields.errors('*')}" th:text="${err}" />
+					</ul>
+				</div>
+
+				<!-- Fila 1: Nombre y Descripción -->
+				<div class="row mb-2">
+					<div class="col-md-3">
+						<div class="mb-3">
+							<label for="nombre" class="form-label fw-bold">Nombre</label> 
+							<input th:field="*{nombre}" type="text" class="form-control" id="nombre" name="nombre" placeholder="Título de la oferta de trabajo" required />
+						</div>
+					</div>
+
+					<div class="col-md-9">
+						<div class="mb-3">
+							<label for="descripcion" class="form-label fw-bold">Descripción</label> 
+							<input th:field="*{descripcion}" type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Breve descripción de la oferta de trabajo" required />
+						</div>
+					</div>
+				</div>
+
+				<!-- Fila 2: Categoría, Estatus, Fecha, Destacado -->
+				<div class="row mb-2">
+					<div class="col-md-3">
+						<div class="mb-3">
+							<label for="categoria" class="form-label fw-bold">Categoría:</label> 
+							<select th:field="*{categoria.id}" class="form-select">
+								<option th:each="cat : ${categorias}" th:value="${cat.id}" th:text=${cat.nombre}> --- </option>
+							</select>
+						</div>
+					</div>
+
+					<div class="col-md-3">
+						<div class="mb-3">
+							<label th:field="*{estatus}" for="estatus" class="form-label fw-bold">Estatus</label> <select class="form-select" name="estatus" id="estatus">
+								<option value="1">Creada</option>
+								<option value="2">Aprobada</option>
+								<option value="3">Eliminada</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="col-md-3">
+						<div class="mb-3">
+							<label for="fecha" class="form-label fw-bold">Fecha de Publicación</label>
+							<div class="input-group">
+								<span class="input-group-text"> <i class="fa-solid fa-calendar-days"></i>
+								</span> <input th:field="*{fecha}" type="text" class="form-control" name="fecha" id="fecha" autocomplete="off" placeholder="dd-mm-aaaa" required />
+							</div>
+							<div class="form-text">Formato: dd-mm-aaaa</div>
+						</div>
+					</div>
+
+					<div class="col-md-3">
+						<fieldset class="border-0 p-0 mb-0">
+							<label class="form-label d-block fw-bold">Destacado:</label>
+							<div class="form-check">
+								<input th:field="*{destacada}" class="form-check-input" type="radio" name="destacada" id="destacado1" value="1" checked /> <label class="form-check-label" for="destacado1">Destacado</label>
+							</div>
+							<div class="form-check">
+								<input th:field="*{destacada}" class="form-check-input" type="radio" name="destacada" id="destacado2" value="0" /> <label class="form-check-label" for="destacado2">No Destacado</label>
+							</div>
+						</fieldset>
+					</div>
+				</div>
+
+				<!-- Fila 3: Salario e Imagen -->
+				<div class="row mb-2">
+					<div class="col-md-3">
+						<div class="mb-3">
+							<label for="salario" class="form-label fw-bold">Salario Ofrecido (Aprox):</label> <input th:field="*{salario}" type="text" class="form-control" name="salario" id="salario" placeholder="Salario aproximado." required />
+						</div>
+					</div>
+					<div class="col-md-9">
+						<div class="mb-3">
+							<label for="archivoImagen" class="form-label fw-bold">Imagen:</label> <input type="file" class="form-control" name="archivoImagen" id="archivoImagen" accept="image/*" />
+							<div class="form-text">Formatos recomendados: JPG, PNG, WEBP.</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Fila 4: Detalles e Imagen/Logo -->
+				<div class="row mb-4">
+					<div class="col-md-9">
+						<div class="mb-3">
+							<label for="detalles" class="form-label"><strong>Detalles</strong></label>
+							<textarea th:field="*{detalles}" class="form-control" name="detalles" id="detalles" rows="7" placeholder="Requisitos, responsabilidades, beneficios…"></textarea>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<label class="form-label fw-bold">Imagen/Logo:</label> <img class="rounded mx-auto d-block img-fluid" th:src="@{/images/no-image.png}" alt="Logo de la empresa" width="200" height="200" />
+					</div>
+				</div>
+
+				<hr>
+
+				<button type="submit" class="btn btn-primary">Guardar</button>
+				<button type="reset" class="btn btn-secondary">Limpiar</button>
+			</form>
 		</div>
-   
-        <!-- Fila 1: Nombre y Descripción -->
-        <div class="row mb-2">
-          <div class="col-md-3">
-            <div class="mb-3">
-              <label for="nombre" class="form-label fw-bold">Nombre</label>
-              <input
-                type="text"
-                class="form-control"
-                id="nombre"
-                name="nombre"
-                placeholder="Título de la oferta de trabajo"
-                required />
-            </div>
-          </div>
-
-          <div class="col-md-9">
-            <div class="mb-3">
-              <label for="descripcion" class="form-label fw-bold">Descripción</label>
-              <input
-                type="text"
-                class="form-control"
-                id="descripcion"
-                name="descripcion"
-                placeholder="Breve descripción de la oferta de trabajo"
-                required />
-            </div>
-          </div>
-        </div>
-
-        <!-- Fila 2: Categoría, Estatus, Fecha, Destacado -->
-        <div class="row mb-2">
-          <div class="col-md-3">
-            <div class="mb-3">
-              <label for="categoria" class="form-label fw-bold">Categoría:</label>
-              <select class="form-select" name="categoria" id="categoria">
-                <option value="1">Ventas</option>
-                <option value="2">Contabilidad</option>
-                <option value="3">Transporte</option>
-                <option value="4">Informática</option>
-                <option value="5">Construcción</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="col-md-3">
-            <div class="mb-3">
-              <label for="estatus" class="form-label fw-bold">Estatus</label>
-              <select class="form-select" name="estatus" id="estatus">
-                <option value="1">Creada</option>
-                <option value="2">Aprobada</option>
-                <option value="3">Eliminada</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="col-md-3">
-            <div class="mb-3">
-              <label for="fecha" class="form-label fw-bold">Fecha de Publicación</label>
-              <div class="input-group">
-                <span class="input-group-text">
-                  <i class="fa-solid fa-calendar-days"></i>
-                </span>
-                <input
-                  type="text"
-                  class="form-control"
-                  name="fecha"
-                  id="fecha"
-                  autocomplete="off"
-                  placeholder="dd-mm-aaaa"
-                  required />
-              </div>
-              <div class="form-text">Formato: dd-mm-aaaa</div>
-            </div>
-          </div>
-
-          <div class="col-md-3">
-            <fieldset class="border-0 p-0 mb-0">
-              <label class="form-label d-block fw-bold">Destacado:</label>
-                <div class="form-check">
-                  <input 
-                    class="form-check-input" 
-                    type="radio" 
-                    name="destacado"
-                    id="destacado1" 
-                    value="1" 
-                    checked />
-                  <label class="form-check-label" for="destacado1">Destacado</label>
-                </div>
-                <div class="form-check">
-                  <input 
-                    class="form-check-input" 
-                    type="radio" 
-                    name="destacado"
-                    id="destacado2" 
-                    value="0"/>
-                  <label class="form-check-label" for="destacado2">No Destacado</label>
-                </div>                         
-            </fieldset>
-          </div>
-        </div>
-
-        <!-- Fila 3: Salario e Imagen -->
-        <div class="row mb-2">
-          <div class="col-md-3">
-            <div class="mb-3">
-              <label for="salario" class="form-label fw-bold">Salario Ofrecido (Aprox):</label>
-              <input
-                type="text"
-                class="form-control"
-                name="salario"
-                id="salario"
-                placeholder="Salario aproximado."
-                required />
-            </div>
-          </div>
-          <div class="col-md-9">
-            <div class="mb-3">
-              <label for="archivoImagen" class="form-label fw-bold">Imagen:</label>
-              <input 
-                type="file" 
-                class="form-control" 
-                name="archivoImagen" 
-                id="archivoImagen" 
-                accept="image/*" />
-              <div class="form-text">Formatos recomendados: JPG, PNG, WEBP.</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Fila 4: Detalles e Imagen/Logo -->
-        <div class="row mb-4">
-          <div class="col-md-9">
-            <div class="mb-3">
-              <label for="detalles" class="form-label"><strong>Detalles</strong></label>
-              <textarea 
-                class="form-control" 
-                name="detalles" 
-                id="detalles"
-                rows="7"
-                placeholder="Requisitos, responsabilidades, beneficios…"></textarea>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <label class="form-label fw-bold">Imagen/Logo:</label>
-            <img
-              class="rounded mx-auto d-block img-fluid"
-              th:src="@{/images/no-image.png}"
-              alt="Logo de la empresa"
-              width="200"
-              height="200" />
-          </div>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Guardar</button>
-      </form>
-    </div>
-  </div>
+	</div>
 </main>
 
 <footer th:replace="~{fragments/footer :: footer}"></footer>
 
-<th:block th:replace="~{fragments/scripts :: scripts}"/>
+<th:block th:replace="~{fragments/scripts :: scripts}" />
 
 <script>
-  flatpickr("#fecha", {
-    dateFormat: "d-m-Y",
-    locale: "es",
-    allowInput: false,        
-    maxDate: "today",         
-    altInput: true,
-    altFormat: "d-m-Y",
-    disableMobile: true       
-  });
+	flatpickr("#fecha", {
+		dateFormat : "d-m-Y",
+		locale : "es",
+		allowInput : false,
+		maxDate : "today",
+		altInput : true,
+		altFormat : "d-m-Y",
+		disableMobile : true
+	});
 
-  /*
-  tinymce.init({
-      selector: '#detalles',
-      plugins: "textcolor, table lists code",
-      toolbar: " undo redo | bold italic | alignleft aligncenter alignright alignjustify \n\
-                | bullist numlist outdent indent | forecolor backcolor table code"
-  });
-  */
+	tinymce
+			.init({
+				selector : '#detalles',
+				plugins : "textcolor, table lists code",
+				toolbar : " undo redo | bold italic | alignleft aligncenter alignright alignjustify \n\
+	            | bullist numlist outdent indent | forecolor backcolor table code",
+				promotion : false,
+				license_key : 'gpl'
+			});
 </script>
 </body>
 </html>

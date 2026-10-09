@@ -1,98 +1,85 @@
 <div th:replace="~{fragments/top :: top}" />
 
-<main class="container">
-  <h1 class="display-5 fw-bold text-primary text-center py-2 my-4">Listado de vacantes</h1>
+<main class="container py-4 my-4">
 
-  <div class="card shadow-sm">
-    <div class="card-body">
-      <a class="btn btn-primary" th:href="@{/vacantes/create}" title="Crear nueva Oferta de Trabajo">
-        <i class="fas fa-plus"></i> Nueva
-      </a>
+	<div class="card shadow-sm">
+		<div class="card-header d-flex justify-content-between align-items-center bg-light">
+			<h2 class="h5 fw-bold mb-0 text-primary">
+				<i class="fas fa-briefcase me-1" aria-hidden="true"></i> Listado de Vacantes
+			</h2>
+			<a class="btn btn-primary" th:href="@{/vacantes/create}" title="Crear nueva Oferta de Trabajo">
+				<i class="fas fa-plus" aria-hidden="true"></i> Nueva
+			</a>
+		</div>
 
-      <hr>
+		<div class="card-body">
+			<div th:if="${msg != null}" class="alert alert-success" th:text="${msg}"></div>
 
-      <div class="table-responsive">
-        <table class="table table-hover table-bordered table-light align-middle">
-          <caption>Listado de vacantes registradas</caption>
-          <thead>
-            <tr class="text-center">
-              <th>Categoría</th>
-              <th>Nombre</th>
-              <th>Fecha Pub.</th>
-              <th>Estatus</th>
-              <th>Destacada</th>
-              <th>Operaciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr th:each="tmpVacante : ${vacante}" class="text-center">
-              <td> N/A </td>
-              <td th:text="${tmpVacante.nombre}"></td>
-              <td th:text="${tmpVacante.fecha}"></td>
-              <td>
-                <span 
-                  class="badge"
-                  th:classappend="${tmpVacante.estatus == 1} ? 'text-bg-primary' : 'text-bg-secondary' "
-                  th:text="${tmpVacante.estatus == 1} ? 'Activa' : 'Cerrada' ">
-                </span>
-              </td>
-              <td>
-                <span 
-                  class="badge"
-                  th:classappend="${tmpVacante.destacada == 1} ? 'text-bg-success' : 'text-bg-danger' "
-                  th:text="${tmpVacante.destacada == 1} ? 'Si' : 'No' ">
-                </span>
-              </td>
-              <td>
-                <a 
-                  href="#" 
-                  class="btn btn-warning btn-sm" 
-                  id="btnEditar"
-                  title="Editar el registro.">
-                    <i class="fas fa-pencil-alt" aria-hidden="true"></i>
-                </a>
-
-                <a 
-                  href="#" 
-                  class="btn btn-danger btn-sm" 
-                  id="btnEliminar"
-                  title="Eliminar el registro.">
-                    <i class="fas fa-trash" aria-hidden="true"></i>
-                </a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-  <!-- /container -->
+			<div class="table-responsive">
+				<table class="table table-hover table-bordered table-light align-middle">
+					<caption>Listado de vacantes registradas</caption>
+					<thead class="table-secondary">
+						<tr class="text-center">
+							<th>Categoría</th>
+							<th>Nombre</th>
+							<th>Fecha Pub.</th>
+							<th>Estatus</th>
+							<th>Destacada</th>
+							<th>Operaciones</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="tmpVacante : ${vacante}" class="text-center">
+							<td>N/A</td>
+							<td th:text="${tmpVacante.nombre}"></td>
+							<td th:text="${#dates.format(tmpVacante.fecha, 'dd/MM/yyyy')}"}></td>
+							<td>
+								<span class="badge" th:classappend="${tmpVacante.estatus == 1} ? 'text-bg-primary' : 'text-bg-secondary' " th:text="${tmpVacante.estatus == 1} ? 'Activa' : 'Cerrada' "> </span>
+							</td>
+							<td>
+								<span class="badge" th:classappend="${tmpVacante.destacada == 1} ? 'text-bg-success' : 'text-bg-danger' " th:text="${tmpVacante.destacada == 1} ? 'Si' : 'No' "> </span>
+							</td>
+							<td>
+								<a href="#" class="btn btn-warning btn-sm" id="btnEditar" title="Editar el registro.">
+									<i class="fas fa-pencil-alt" aria-hidden="true"></i>
+								</a>
+								<a href="#" class="btn btn-danger btn-sm" id="btnEliminar" title="Eliminar el registro.">
+									<i class="fas fa-trash" aria-hidden="true"></i>
+								</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<!-- /container -->
 </main>
 
 <footer th:replace="~{fragments/footer :: footer}"></footer>
 <th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
 
-    <script>
-      $(document).ready(function() {
-        // Evento click del botón
-        $('#btnEliminar').on('click', function() { 
-          Swal.fire({
-            title: '¿Estás seguro?',
-            text: "No podrás revertir esto",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Sí, eliminar',
-            cancelButtonText: 'Cancelar'
-          }).then((result) => {
-            if (result.isConfirmed) {
-              Swal.fire('Eliminado', 'El registro ha sido eliminado.', 'success');
-            }
-          });
-        });
+<script>
+  $(document).ready(function() {
+    // Evento click del botón
+    $('#btnEliminar').on('click', function() { 
+      Swal.fire({
+        title: '¿Estás seguro?',
+        text: "No podrás revertir esto",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire('Eliminado', 'El registro ha sido eliminado.', 'success');
+        }
       });
-    </script>
+    });
+  });
+</script>
 </body>
 
 </html>
