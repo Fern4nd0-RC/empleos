@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,15 +17,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fromero.interfaces.CategoriaInterface;
 import com.fromero.interfaces.VacanteInterface;
 import com.fromero.model.Vacante;
+import com.fromero.utils.Utilerias;
 
 @Controller
 @RequestMapping("/vacantes")
 public class VacanteController {
+	
+	@Value("${empleosapp.ruta.imagenes}")
+	private String RUTA;
 
 	// === INYECCION DE LA INTERFAZ "VACANTE" Y "CATEGORIAS" POR CONSTRUCTOR ===
     private final VacanteInterface vacanteService;
@@ -58,13 +64,21 @@ public class VacanteController {
 
     // === GUARDAR ===
     @PostMapping("/save")
-    public String guardar(Vacante vacante, BindingResult result, RedirectAttributes redirectAttributes) {
+    public String guardar(@RequestParam("archivoImagen") MultipartFile multipart, Vacante vacante, BindingResult result, RedirectAttributes redirectAttributes) {
         if (result.hasErrors()){
             for (ObjectError error: result.getAllErrors()){
                 System.out.println("OCURRIÓ UN ERROR: \n" + error.getDefaultMessage());
             }
 
             return "vacantes/formVacante";
+        }
+        
+        if(!multipart.isEmpty()) {
+        	String nombreImagen = Utilerias.guardarArchivo(multipart, RUTA);
+        	
+        	if(nombreImagen != null) {
+        		vacante.setImagen(nombreImagen);
+        	}
         }
 
         vacanteService.guardar(vacante);
@@ -93,6 +107,9 @@ public class VacanteController {
 
         return "vacantes/mensaje";
     }
+
+    
+    
 
 
     // === ANOTACIÓN InitBinder ===
